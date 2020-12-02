@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AspNetCoreCRUD.Models.Founder>
+
+@{
+    ViewData["Title"] = "Список учредителей";
+}
+
+<h1>Учредители</h1>
+
+<p>
+    <a asp-action="Create">Добавить учредителя</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ИНН</th>
+            <th>ФИО</th>
+            <th>Дата добавления</th>
+            <th>Дата обновления</th>
+            <th>Компания</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdentificationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.CompanyName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FounderID">Редактировать</a> <br />
+                <a asp-action="Details" asp-route-id="@item.FounderID">Информация</a> <br />
+                <a asp-action="Delete" asp-route-id="@item.FounderID">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,58 @@
+﻿@model AspNetCoreCRUD.ViewModel.ClientIndexData
+
+@{
+    ViewData["Title"] = "Список клиентов";
+}
+
+<h1>Клиенты</h1>
+
+<p>
+    <a asp-action="Create">Добавить клиента</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ИНН</th>
+            <th>Наименование</th>
+            <th>Тип</th>
+            <th>Дата добавления</th>
+            <th>Дата обновления</th>
+            <th>Учредители</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Clients)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdentificationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdate)
+            </td>
+            <td>
+                @{ foreach (var client in item.Founders)
+                   {
+                        @client.FullName <br />
+                   }
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ClientID">Редактировать</a> <br />
+                <a asp-action="Details" asp-route-id="@item.ClientID">Информация</a> <br />
+                <a asp-action="Delete" asp-route-id="@item.ClientID">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
